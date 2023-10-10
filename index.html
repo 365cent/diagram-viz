@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Drawer</title>
+    <script src="https://unpkg.com/viz.js"></script>
+    <script src="https://unpkg.com/viz.js/full.render.js"></script>
+</head>
+<body>
+    <h1>Diagram Drawer with Viz.js</h1>
+    <textarea id="dot-code" rows="10" cols="50">
+        digraph G {
+            A -> B;
+            B -> C;
+            C -> A;
+        }
+    </textarea>
+    <button onclick="generateDiagram()">Generate Diagram</button>
+    <h2>Generated Diagram</h2>
+    <div id="output"></div>
+
+    <script>
+        function generateDiagram() {
+            var dotCode = document.getElementById('dot-code').value;
+            var viz = new Viz();
+            viz.renderSVGElement(dotCode)
+                .then(function(element) {
+                    document.getElementById('output').innerHTML = '';
+                    document.getElementById('output').appendChild(element);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+</html>
